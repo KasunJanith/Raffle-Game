@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+
+  background: linear-gradient(
+      rgba(255, 235, 205, 0.95),
+      rgba(255, 228, 181, 0.95)
+    ),
+    url("/avurudu-pattern.png");
+
+  background-size: cover;
+  background-position: center;
+}
+
+/* Game card style */
+.avurudu-card {
+  background: #fffaf0;
+  border: 3px solid #b30000;
+  border-radius: 12px;
+}
+
+/* Title style */
+.avurudu-title {
+  color: #b30000;
+  font-weight: bold;
+}
+
+/* Gold button theme */
+.ant-btn-primary {
+  background: #b30000;
+  border-color: #b30000;
+}
+
+.ant-btn-primary:hover {
+  background: #ff8c00;
+  border-color: #ff8c00;
+}
