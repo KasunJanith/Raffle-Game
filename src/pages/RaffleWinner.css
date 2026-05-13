@@ -97,18 +97,17 @@
 }
 
 .winner-name {
- font-size: 20px;
-  color: #666;
-  margin: 0;
-}
-
-.winner-phone {
-  
-   font-size: 48px;
+  font-size: 48px;
   font-weight: 900;
   margin: 0 0 10px 0;
   color: #f5576c;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.winner-phone {
+  font-size: 20px;
+  color: #666;
+  margin: 0;
 }
 
 .congratulations-text {
