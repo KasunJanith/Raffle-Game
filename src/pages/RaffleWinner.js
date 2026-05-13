@@ -101,9 +101,8 @@ export default function RaffleWinner() {
           whileHover={{ scale: 1.05 }}
         >
           <div className="card-glow"></div>
-          <h2 className="winner-phone">{winner.phone}</h2>
-          <p className="winner-name">{winner.name}</p>
-          
+          <h2 className="winner-name">{winner.name}</h2>
+          <p className="winner-phone">{winner.phone}</p>
         </motion.div>
 
         {/* Congratulations message */}
