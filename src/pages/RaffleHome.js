@@ -97,7 +97,7 @@ export default function RaffleHome() {
 
         {/* Decorative cards */}
         <div className="raffle-cards">
-          {["🎯", "🏆", "💎"].map((icon, i) => (
+          {["🎯", "🏆", "🎲"].map((icon, i) => (
             <motion.div
               key={i}
               className="raffle-card"

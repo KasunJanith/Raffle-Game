@@ -101,8 +101,9 @@ export default function RaffleWinner() {
           whileHover={{ scale: 1.05 }}
         >
           <div className="card-glow"></div>
-          <h2 className="winner-name">{winner.name}</h2>
-          <p className="winner-phone">{winner.phone}</p>
+          
+          <h2 className="winner-phone">{winner.phone}</h2>
+          <p className="winner-name">{winner.name}</p>
         </motion.div>
 
         {/* Congratulations message */}
@@ -182,9 +183,9 @@ export default function RaffleWinner() {
         className="gradient-background"
         animate={{
           background: [
-            "linear-gradient(45deg, #ff6b6b, #f5576c)",
-            "linear-gradient(45deg, #f5576c, #ffd700)",
-            "linear-gradient(45deg, #ffd700, #ff6b6b)",
+            "linear-gradient(45deg,rgb(19, 15, 15),rgb(74, 76, 40))",
+            "linear-gradient(45deg,rgb(35, 32, 33), #ffd700)",
+            "linear-gradient(45deg, #ffd700,rgb(55, 50, 50))",
           ],
         }}
         transition={{

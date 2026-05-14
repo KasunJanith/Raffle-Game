@@ -6,7 +6,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(45deg, #ff6b6b, #f5576c);
+  background: linear-gradient(45deg, #000000, #c8cb14);
 }
 
 .gradient-background {
@@ -97,16 +97,16 @@
 }
 
 .winner-name {
-  font-size: 48px;
+  font-size: 20px;
   font-weight: 900;
   margin: 0 0 10px 0;
-  color: #f5576c;
+  color: #393838;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .winner-phone {
-  font-size: 20px;
-  color: #666;
+  font-size: 48px;
+  color: #000000;
   margin: 0;
 }
 
@@ -158,7 +158,7 @@
   border-radius: 30px;
   background: rgba(255, 255, 255, 0.9);
   border: 3px solid white;
-  color: #f5576c;
+  color: #000000;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   padding: 0 40px;
@@ -184,11 +184,11 @@
   }
 
   .winner-name {
-    font-size: 36px;
+    font-size: 16px;
   }
 
   .winner-phone {
-    font-size: 16px;
+    font-size: 36px;
   }
 
   .congratulations-text {
