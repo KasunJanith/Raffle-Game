@@ -5,7 +5,26 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: #000;                         /* solid black fallback */
+  background-image: url('../assets/raffle-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Dark overlay with adjustable opacity */
+.raffle-home-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);               /* 50% dark overlay – tweak as needed */
+  z-index: 1;
+}
+
+/* Ensure your content sits above the overlay */
+.raffle-home-container > * {
+  position: relative;
+  z-index: 2;
 }
 
 .raffle-bg-gradient {
@@ -54,11 +73,12 @@
   margin: 0 0 20px 0;
   text-transform: uppercase;
   letter-spacing: 3px;
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  background: linear-gradient(135deg, #AE8625 0%, #FFD700 50%, #AE8625 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 4px 12px rgba(174, 134, 37, 0.6));
+  text-shadow: 0 0 30px rgba(174, 134, 37, 0.4);
 }
 
 .raffle-subtitle {
@@ -74,22 +94,23 @@
   font-size: 24px;
   font-weight: bold;
   border-radius: 50px;
-  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-  border: 3px solid #fff;
-  color: white;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #AE8625, #FFD700);
+  border: 3px solid #000;
+  color: #000;
+  box-shadow: 0 10px 40px rgba(174, 134, 37, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   padding: 0 60px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  font-weight: 800;
 }
 
 .start-game-btn:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 50px rgba(255, 107, 107, 0.4);
-  background: linear-gradient(135deg, #ff5252, #ff1744);
+  box-shadow: 0 15px 50px rgba(174, 134, 37, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #FFD700, #AE8625);
 }
 
 .start-game-btn:active {

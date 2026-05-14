@@ -1,7 +1,7 @@
 .raffle-dashboard-container {
   min-height: 100vh;
   padding: 40px 20px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
   position: relative;
   overflow: hidden;
 }
@@ -10,8 +10,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.15), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.15), transparent 40%);
+    radial-gradient(circle at 20% 80%, rgba(174, 134, 37, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.15), transparent 40%);
   animation: bgFloat 15s ease-in-out infinite;
   pointer-events: none;
 }
@@ -32,20 +32,20 @@
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  background: rgba(174, 134, 37, 0.1) !important;
+  border: 2px solid #AE8625 !important;
   border-radius: 20px !important;
   backdrop-filter: blur(10px);
-  color: white;
+  color: #FFD700;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(174, 134, 37, 0.2);
 }
 
 .stat-card:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(255, 215, 0, 0.4) !important;
+  background: rgba(174, 134, 37, 0.15) !important;
+  border-color: #FFD700 !important;
   transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.2);
+  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3);
 }
 
 .participants-section {
@@ -56,23 +56,23 @@
 
 .section-title {
   text-align: center;
-  color: white;
+  color: #FFD700;
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 30px;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4px 12px rgba(174, 134, 37, 0.5);
   letter-spacing: 2px;
 }
 
 .participants-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(174, 134, 37, 0.05);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid #AE8625;
   min-height: 300px;
 }
 
@@ -82,75 +82,131 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: #FFD700;
   font-size: 18px;
 }
 
-.participant-balloon {
+/* Participant Card Styles */
+.participant-card {
+  background: linear-gradient(135deg, #AE8625 0%, #FFD700 100%);
+  border: 2px solid #FFD700;
+  border-radius: 15px;
+  padding: 15px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(174, 134, 37, 0.3);
+  transition: all 0.3s ease;
+  min-height: 140px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  cursor: pointer;
+  justify-content: space-between;
 }
 
-.balloon-inner {
-  position: relative;
-  width: 120px;
-  height: 140px;
+.participant-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
+  border-color: white;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-.balloon-color {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50% 50% 50% 45%;
-  background: linear-gradient(135deg, #ff6b6b, #ff8787);
-  box-shadow: 
-    inset -5px -5px 15px rgba(0, 0, 0, 0.2),
-    0 10px 30px rgba(255, 107, 107, 0.4);
-  transform: rotate(-20deg);
-  animation: balloonFloat 3s ease-in-out infinite;
+.participant-index {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-@keyframes balloonFloat {
-  0%, 100% {
-    transform: rotate(-20deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-20deg) translateY(-10px);
-  }
-}
-
-.balloon-shine {
-  position: absolute;
-  width: 30%;
-  height: 30%;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  top: 15%;
-  left: 20%;
-  filter: blur(10px);
-}
-
-.balloon-content {
-  position: absolute;
-  inset: 0;
+.card-body {
+  flex: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  text-align: center;
-  padding: 10px;
+  gap: 10px;
 }
 
 .participant-name {
-  color: white;
+  color: #000;
   font-weight: bold;
-  font-size: 12px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
   word-break: break-word;
-  max-width: 90%;
 }
+
+.participant-phone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.phone-label {
+  font-size: 16px;
+}
+
+.phone-number {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+.card-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  border: 2px solid #FFD700;
+  animation: cardPulse 0.6s ease-in-out;
+}
+
+@keyframes cardPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+  }
+}
+
+/* View More / View Less Buttons */
+.view-more-container,
+.view-less-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.view-more-btn,
+.view-less-btn {
+  background: linear-gradient(135deg, #AE8625, #FFD700) !important;
+  border: 2px solid #FFD700 !important;
+  color: #000 !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  padding: 12px 40px !important;
+  border-radius: 25px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 8px 20px rgba(174, 134, 37, 0.4) !important;
+}
+
+.view-more-btn:hover,
+.view-less-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.6) !important;
+  border-color: white !important;
+}
+
 
 .balloon-pulse {
   position: absolute;
