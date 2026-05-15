@@ -10,9 +10,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import { saveWinner } from "../api/raffleApi";
 import "./RaffleDashboard.css";
-
+import { createPortal } from "react-dom";
 const INITIAL_DISPLAY = 20;
-const SHUFFLE_DURATION = 4;
+const SHUFFLE_DURATION = 5;
 
 export default function RaffleDashboard() {
   const navigate = useNavigate();
@@ -92,10 +92,10 @@ export default function RaffleDashboard() {
   // Filter for participants modal
   const filteredParticipants = searchText
     ? participants.filter(
-        (p) =>
-          p.phone.includes(searchText) ||
-          p.name.toLowerCase().includes(searchText.toLowerCase())
-      )
+      (p) =>
+        p.phone.includes(searchText) ||
+        p.name.toLowerCase().includes(searchText.toLowerCase())
+    )
     : participants;
 
   const showMoreButton = participants.length > INITIAL_DISPLAY;
@@ -123,7 +123,7 @@ export default function RaffleDashboard() {
             {drawing ? "SPINNING..." : "READY"}
           </span>
           <br />
-          <span className="stat-label">Draw Status</span>
+          <span className="stat-label"> Status</span>
         </div>
         <div className="stat-card">
           <TrophyOutlined style={{ fontSize: 32, color: "#FFD700" }} />
@@ -197,40 +197,42 @@ export default function RaffleDashboard() {
       </motion.div>
 
       {/* Shuffling overlay */}
-      {drawing && (
-        <motion.div
-          className="shuffle-overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          {participants.slice(0, 30).map((p, i) => (
-            <motion.div
-              key={p.id}
-              className="flying-bubble"
-              initial={{
-                x: Math.random() * 300 - 150,
-                y: Math.random() * 300 - 150,
-                scale: 1.0,
-                opacity: 0,
-              }}
-              animate={{
-                x: [null, Math.random() * 400 - 200, Math.random() * 400 - 200],
-                y: [null, Math.random() * 400 - 200, Math.random() * 400 - 200],
-                scale: [0.8, 1.2, 0.9],
-                opacity: [0, 1, 1, 0],
-              }}
-              transition={{
-                duration: SHUFFLE_DURATION,
-                ease: "easeInOut",
-                delay: i * 0.05,
-              }}
-            >
-              <span>{p.phone.slice(-4)}</span>
-            </motion.div>
-          ))}
-        </motion.div>
-      )}
+      {drawing &&
+        createPortal(
+          <motion.div
+            className="shuffle-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {participants.slice(0, 30).map((p, i) => (
+              <motion.div
+                key={p.id}
+                className="flying-bubble"
+                initial={{
+                  x: Math.random() * 300 - 150,
+                  y: Math.random() * 300 - 150,
+                  scale: 1.0,
+                  opacity: 0,
+                }}
+                animate={{
+                  x: [null, Math.random() * 400 - 200, Math.random() * 400 - 200],
+                  y: [null, Math.random() * 400 - 200, Math.random() * 400 - 200],
+                  scale: [0.2, 1.5, 0.2],
+                  opacity: [0, 1, 1, 0],
+                }}
+                transition={{
+                  duration: SHUFFLE_DURATION,
+                  ease: "easeInOut",
+                  delay: i * 0.05,
+                }}
+              >
+                <span>{p.phone.slice(-4)}</span>
+              </motion.div>
+            ))}
+          </motion.div>,
+          document.body
+        )}
 
       {/* Recent winners panel (bottom-right) */}
       {recentWinners.length > 0 && (
@@ -290,7 +292,8 @@ export default function RaffleDashboard() {
               <div className="custom-modal-body">
                 <Input
                   prefix={<SearchOutlined />}
-                  placeholder="Search by phone or name..."
+                  placeholder="Search by user-id or name..."
+                  color="#ffffff"
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   className="modal-search"

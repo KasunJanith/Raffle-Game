@@ -14,10 +14,10 @@
 
 /* Dark overlay with adjustable opacity */
 .raffle-home-container::before {
-  content: '';
+   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);               /* 50% dark overlay – tweak as needed */
+  background: rgba(0, 0, 0, 0.65);
   z-index: 1;
 }
 
@@ -68,38 +68,23 @@
 }
 
 .raffle-title {
-  font-size: 72px;
+  font-size: 80px;
   font-weight: 900;
   margin: 0 0 20px 0;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  
-  /* Gradient fill kept, but we add a thick stroke */
-  background: linear-gradient(135deg, #AE8625 0%, #FFD700 50%, #AE8625 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  
-  /* Thick black outline – makes the text pop over any background */
-  -webkit-text-stroke: 3px #000000;
-  /* Fallback for non-webkit browsers (they’ll see the filled color) */
-  color: #FFD700; /* fallback solid color */
-  
-  /* Enhanced shadow for extra depth */
-  filter: drop-shadow(0 4px 12px rgba(174, 134, 37, 0.8));
-  text-shadow: 0 0 30px rgba(174, 134, 37, 0.5);
+  letter-spacing: 4px;
+  color: #ffd700;
+  -webkit-text-stroke: 2px #000;
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.5), 4px 4px 0 rgba(0, 0, 0, 0.8);
 }
 
 .raffle-subtitle {
-  font-size: 24px;
-  margin: 0 0 40px 0;
-  color: rgba(118, 205, 212, 0.9);
-  font-weight: 800;
-  letter-spacing: 1px;
-  
-  /* Add a subtle dark outline and shadow for readability */
-  -webkit-text-stroke: 0.5px #000000;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+  font-size: 26px;
+  margin: 0 0 50px 0;
+  color: #f0e6d2;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 .start-game-btn {
