@@ -254,32 +254,60 @@
 }
 
 /* Recent winners panel (bottom-right) */
+/* ========= RECENT WINNERS PANEL ========= */
 .winners-panel {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
   border: 1px solid #AE8625;
   border-radius: 15px;
   padding: 15px;
-  width: 220px;
-  max-height: 250px;
-  overflow-y: auto;
+  width: 280px;                  /* increased from 220px */
+  max-height: 350px;             /* a bit taller */
+  overflow: hidden;
   z-index: 150;
+  transition: all 0.3s ease;
 }
 
-.winners-panel h3 {
+.winners-panel.minimized {
+  max-height: 50px;             /* collapse to header only */
+  padding: 10px 15px;
+}
+
+.winners-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.winners-panel-header h3 {
   color: #FFD700;
-  margin: 0 0 10px;
-  font-size: 16px;
-  text-align: center;
+  margin: 0;
+  font-size: 16px;              /* slightly bigger */
+  letter-spacing: 1px;
+}
+
+.minimize-btn {
+  background: none;
+  border: none;
+  color: #FFD700;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0 5px;
+}
+.minimize-btn:hover {
+  color: #ffffff;
 }
 
 .winners-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top: 10px;
 }
 
 .winner-item {
@@ -289,6 +317,30 @@
   color: white;
 }
 
+.w-phone {
+  font-family: 'Courier New', monospace;
+  color: #FFD700;
+  font-weight: bold;
+  font-size: 15px;              /* larger */
+}
+
+.w-name {
+  color: #ccc;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.see-all-winners-btn {
+  color: #FFD700;
+  padding: 0;
+  margin-top: 10px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
 .w-phone {
   font-family: monospace;
   color: #FFD700;

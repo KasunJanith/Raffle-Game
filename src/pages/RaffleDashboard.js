@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, Spin, Input, List, Avatar } from "antd";
 import {
@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { saveWinner } from "../api/raffleApi";
 import "./RaffleDashboard.css";
 import { createPortal } from "react-dom";
+import spinSound from "../assets/sounds/spin.mp3"
 const INITIAL_DISPLAY = 20;
-const SHUFFLE_DURATION = 5;
+const SHUFFLE_DURATION = 3;
 
 export default function RaffleDashboard() {
   const navigate = useNavigate();
@@ -25,7 +26,20 @@ export default function RaffleDashboard() {
   const [participantsModalVisible, setParticipantsModalVisible] = useState(false);
   const [winnersModalVisible, setWinnersModalVisible] = useState(false);
   const [searchText, setSearchText] = useState("");
-
+  const [winnersMinimized, setWinnersMinimized] = useState(false);
+  const [shuffleParticipants, setShuffleParticipants] = useState([]);
+   const [overlayVisible, setOverlayVisible] = useState(false);
+  const spinAudioRef = useRef(null);
+  useEffect(() => {
+    spinAudioRef.current = new Audio(spinSound);
+    spinAudioRef.current.loop = true;
+    return () => {
+      if (spinAudioRef.current) {
+        spinAudioRef.current.pause();
+        spinAudioRef.current = null;
+      }
+    };
+  }, []);
   // Fetch participants
   const loadParticipants = useCallback(async () => {
     try {
@@ -66,28 +80,47 @@ export default function RaffleDashboard() {
 
   // Start draw – after shuffle, pick winner, save, then navigate to winner page
   const handleStartDraw = () => {
-    if (participants.length === 0) {
-      alert("No participants to draw from!");
-      return;
-    }
-    setDrawing(true);
+  if (participants.length === 0) {
+    alert("No participants to draw from!");
+    return;
+  }
 
-    setTimeout(async () => {
-      const randomIndex = Math.floor(Math.random() * participants.length);
-      const winner = participants[randomIndex];
+  setShuffleParticipants([...participants]);
+  setOverlayVisible(true);
+  setDrawing(true);
 
-      try {
-        await saveWinner(winner);
-        setParticipants((prev) => prev.filter((p) => p.id !== winner.id));
-        loadWinners();
+  if (spinAudioRef.current) {
+    spinAudioRef.current.currentTime = 0;
+    spinAudioRef.current.play().catch(e => console.warn("Audio play failed:", e));
+  }
+
+  setTimeout(async () => {
+    // ❌ REMOVED: stop sound here – let it keep playing
+    // if (spinAudioRef.current) spinAudioRef.current.pause();
+
+    const randomIndex = Math.floor(Math.random() * participants.length);
+    const winner = participants[randomIndex];
+
+    try {
+      await saveWinner(winner);
+      setParticipants((prev) => prev.filter((p) => p.id !== winner.id));
+      loadWinners();
+      setOverlayVisible(false);
+
+      // ✅ IMMEDIATE navigation (no waiting)
+      setTimeout(() => {
         navigate("/winner", { state: { winner } });
-      } catch (err) {
-        console.error("Error saving winner:", err);
-      } finally {
         setDrawing(false);
-      }
-    }, SHUFFLE_DURATION * 1000);
-  };
+        setShuffleParticipants([]);
+      }, 0);
+    } catch (err) {
+      console.error("Error saving winner:", err);
+      setOverlayVisible(false);
+      setDrawing(false);
+      setShuffleParticipants([]);
+    }
+  }, SHUFFLE_DURATION * 1000);
+};
 
   // Filter for participants modal
   const filteredParticipants = searchText
@@ -131,7 +164,21 @@ export default function RaffleDashboard() {
           <span className="stat-label">Total Winners</span>
         </div>
       </motion.div>
-
+      {/* Draw button */}
+      <motion.div
+        className="draw-section"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <Button
+          className="draw-button"
+          size="large"
+          onClick={handleStartDraw}
+          disabled={drawing || participants.length === 0}
+        >
+          {drawing ? "🎲 SPINNING..." : "🎲 START DRAW"}
+        </Button>
+      </motion.div>
       <motion.h2 className="section-title" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         🎈 LIVE PARTICIPANTS 🎈
       </motion.h2>
@@ -180,22 +227,6 @@ export default function RaffleDashboard() {
         </div>
       )}
 
-      {/* Draw button */}
-      <motion.div
-        className="draw-section"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <Button
-          className="draw-button"
-          size="large"
-          onClick={handleStartDraw}
-          disabled={drawing || participants.length === 0}
-        >
-          {drawing ? "🎲 SPINNING..." : "🎲 START DRAW"}
-        </Button>
-      </motion.div>
-
       {/* Shuffling overlay */}
       {drawing &&
         createPortal(
@@ -235,26 +266,40 @@ export default function RaffleDashboard() {
         )}
 
       {/* Recent winners panel (bottom-right) */}
+      {/* Recent winners panel (bottom-right) */}
       {recentWinners.length > 0 && (
-        <div className="winners-panel">
-          <h3>🏆 Recent Winners</h3>
-          <div className="winners-list">
-            {recentWinners.map((w, i) => (
-              <div key={i} className="winner-item">
-                <span className="w-phone">{w.phone}</span>
-                <span className="w-name">{w.name}</span>
-              </div>
-            ))}
+        <div className={`winners-panel ${winnersMinimized ? 'minimized' : ''}`}>
+          <div className="winners-panel-header">
+            <h3>🏆 Recent Winners</h3>
+            <button
+              className="minimize-btn"
+              onClick={() => setWinnersMinimized(!winnersMinimized)}
+            >
+              {winnersMinimized ? '＋' : '－'}
+            </button>
           </div>
-          <Button
-            type="link"
-            className="see-all-winners-btn"
-            onClick={() => setWinnersModalVisible(true)}
-          >
-            See All Winners ({allWinners.length})
-          </Button>
+          {!winnersMinimized && (
+            <>
+              <div className="winners-list">
+                {recentWinners.map((w, i) => (
+                  <div key={i} className="winner-item">
+                    <span className="w-phone">{w.phone}</span>
+                    <span className="w-name">{w.name}</span>
+                  </div>
+                ))}
+              </div>
+              <Button
+                type="link"
+                className="see-all-winners-btn"
+                onClick={() => setWinnersModalVisible(true)}
+              >
+                See All Winners ({allWinners.length})
+              </Button>
+            </>
+          )}
         </div>
       )}
+
 
       {/* ========== CUSTOM PARTICIPANTS MODAL ========== */}
       <AnimatePresence>
