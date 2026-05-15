@@ -96,22 +96,7 @@ export default function RaffleHome() {
         </motion.div>
 
         {/* Decorative cards */}
-        {/* <div className="raffle-cards">
-          {["🎯", "🏆", "🎲"].map((icon, i) => (
-            <motion.div
-              key={i}
-              className="raffle-card"
-              animate={{ y: [0, -20, 0] }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: i * 0.3,
-              }}
-            >
-              <span className="card-icon">{icon}</span>
-            </motion.div>
-          ))}
-        </div> */}
+      
       </motion.div>
 
       {/* Background light effect */}
