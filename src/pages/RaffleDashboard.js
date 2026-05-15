@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button, Spin, Modal, Input, List, Avatar, Badge } from "antd";
+import { Button, Spin, Input, List, Avatar } from "antd";
 import {
   UserOutlined,
   SearchOutlined,
@@ -19,12 +19,9 @@ export default function RaffleDashboard() {
   const [participants, setParticipants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [drawing, setDrawing] = useState(false);
+  const [allWinners, setAllWinners] = useState([]);
+  const recentWinners = allWinners.slice(-5);
 
-  // Winners state – we keep all winners for the modal + total count
-  const [allWinners, setAllWinners] = useState([]); // full list
-  const recentWinners = allWinners.slice(-5);      // last 5 for the panel
-
-  // Modal controls
   const [participantsModalVisible, setParticipantsModalVisible] = useState(false);
   const [winnersModalVisible, setWinnersModalVisible] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -44,7 +41,7 @@ export default function RaffleDashboard() {
     }
   }, []);
 
-  // Fetch all winners (for total count and modal)
+  // Fetch all winners
   const loadWinners = useCallback(async () => {
     try {
       const res = await fetch("http://localhost:5000/api/raffle/winners");
@@ -81,9 +78,8 @@ export default function RaffleDashboard() {
 
       try {
         await saveWinner(winner);
-        // Remove winner locally
         setParticipants((prev) => prev.filter((p) => p.id !== winner.id));
-        loadWinners(); // refresh winners list
+        loadWinners();
         navigate("/winner", { state: { winner } });
       } catch (err) {
         console.error("Error saving winner:", err);
@@ -126,7 +122,8 @@ export default function RaffleDashboard() {
           >
             {drawing ? "SPINNING..." : "READY"}
           </span>
-          <span className="stat-label">Status</span>
+          <br />
+          <span className="stat-label">Draw Status</span>
         </div>
         <div className="stat-card">
           <TrophyOutlined style={{ fontSize: 32, color: "#FFD700" }} />
@@ -232,7 +229,6 @@ export default function RaffleDashboard() {
               <span>{p.phone.slice(-4)}</span>
             </motion.div>
           ))}
-          
         </motion.div>
       )}
 
@@ -258,104 +254,118 @@ export default function RaffleDashboard() {
         </div>
       )}
 
-      {/* All Participants Modal */}
-      <Modal
-        title="All Participants"
-        open={participantsModalVisible}
-        onCancel={() => {
-          setParticipantsModalVisible(false);
-          setSearchText("");
-        }}
-        footer={null}
-        width={700}
-        classNames={{
-          content: "dark-modal-content",
-          header: "dark-modal-header",
-          body: "dark-modal-body",
-        }}
-        styles={{
-          content: {
-            background: "#1a1a1a",
-            border: "2px solid #AE8625",
-            borderRadius: 20,
-            boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-          },
-          header: {
-            background: "transparent",
-            borderBottom: "1px solid #AE8625",
-          },
-          body: {
-            background: "transparent",
-            padding: "20px 24px",
-          },
-        }}
-      >
-        <Input
-          prefix={<SearchOutlined />}
-          placeholder="Search by phone or name..."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          className="modal-search"
-          allowClear
-        />
-        <List
-          dataSource={filteredParticipants}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar icon={<UserOutlined />} />}
-                title={<span className="modal-phone">{item.phone}</span>}
-                description={item.name}
-              />
-            </List.Item>
-          )}
-          className="modal-list"
-        />
-      </Modal>
+      {/* ========== CUSTOM PARTICIPANTS MODAL ========== */}
+      <AnimatePresence>
+        {participantsModalVisible && (
+          <motion.div
+            className="custom-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => {
+              setParticipantsModalVisible(false);
+              setSearchText("");
+            }}
+          >
+            <motion.div
+              className="custom-modal-card"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="custom-modal-header">
+                <h2>All Participants</h2>
+                <button
+                  className="custom-modal-close"
+                  onClick={() => {
+                    setParticipantsModalVisible(false);
+                    setSearchText("");
+                  }}
+                >
+                  <CloseOutlined />
+                </button>
+              </div>
+              <div className="custom-modal-body">
+                <Input
+                  prefix={<SearchOutlined />}
+                  placeholder="Search by phone or name..."
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  className="modal-search"
+                  allowClear
+                />
+                <List
+                  dataSource={filteredParticipants}
+                  renderItem={(item) => (
+                    <List.Item>
+                      <List.Item.Meta
+                        avatar={<Avatar icon={<UserOutlined />} />}
+                        title={<span className="modal-phone">{item.phone}</span>}
+                        description={item.name}
+                      />
+                    </List.Item>
+                  )}
+                  className="modal-list"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* All Winners Modal */}
-      <Modal
-        title="All Winners"
-        open={winnersModalVisible}
-        onCancel={() => setWinnersModalVisible(false)}
-        footer={null}
-        width={700}
-        classNames={{
-          content: "dark-modal-content",
-          header: "dark-modal-header",
-          body: "dark-modal-body",
-        }}
-        styles={{
-          content: {
-            background: "#1a1a1a",
-            border: "2px solid #AE8625",
-            borderRadius: 20,
-            boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-          },
-          header: {
-            background: "transparent",
-            borderBottom: "1px solid #AE8625",
-          },
-          body: {
-            background: "transparent",
-            padding: "20px 24px",
-          },
-        }}
-      >
-        <List
-          dataSource={allWinners}
-          renderItem={(item, index) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar icon={<TrophyOutlined />} style={{ background: "#FFD700" }} />}
-                title={<span className="modal-phone">{item.phone}</span>}
-                description={`${item.name} – ${item.timestamp}`}
-              />
-            </List.Item>
-          )}
-          className="modal-list"
-        />
-      </Modal>
+      {/* ========== CUSTOM WINNERS MODAL ========== */}
+      <AnimatePresence>
+        {winnersModalVisible && (
+          <motion.div
+            className="custom-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setWinnersModalVisible(false)}
+          >
+            <motion.div
+              className="custom-modal-card"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="custom-modal-header">
+                <h2>All Winners</h2>
+                <button
+                  className="custom-modal-close"
+                  onClick={() => setWinnersModalVisible(false)}
+                >
+                  <CloseOutlined />
+                </button>
+              </div>
+              <div className="custom-modal-body">
+                <List
+                  dataSource={allWinners}
+                  renderItem={(item, index) => (
+                    <List.Item>
+                      <List.Item.Meta
+                        avatar={
+                          <Avatar
+                            icon={<TrophyOutlined />}
+                            style={{ background: "#FFD700" }}
+                          />
+                        }
+                        title={<span className="modal-phone">{item.phone}</span>}
+                        description={`${item.name} – ${item.timestamp}`}
+                      />
+                    </List.Item>
+                  )}
+                  className="modal-list"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

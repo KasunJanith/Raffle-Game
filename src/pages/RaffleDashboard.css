@@ -272,7 +272,7 @@
 .winners-panel h3 {
   color: #FFD700;
   margin: 0 0 10px;
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -285,7 +285,7 @@
 .winner-item {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 14px;
   color: white;
 }
 
@@ -321,6 +321,7 @@
 
 .modal-search {
   margin-bottom: 20px;
+  color: #ffffff;
 }
 
 .modal-list {
@@ -444,4 +445,177 @@
   color: #FFD700 !important;
   font-weight: bold;
   font-size: 20px;
+}
+/* ========= DARK THEME FOR MODALS (ANTD V6 COMPATIBLE) ========= */
+.dark-modal .ant-modal-content {
+  background: #1a1a1a !important;
+  border: 2px solid #AE8625 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9) !important;
+}
+
+.dark-modal .ant-modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid #AE8625 !important;
+}
+
+.dark-modal .ant-modal-title {
+  color: #FFD700 !important;
+  font-weight: bold !important;
+  font-size: 20px !important;
+  letter-spacing: 1px !important;
+}
+
+.dark-modal .ant-modal-close {
+  color: #FFD700 !important;
+  background: transparent !important;
+}
+.dark-modal .ant-modal-close:hover {
+  color: #ffffff !important;
+}
+
+.dark-modal .ant-modal-body {
+  background: transparent !important;
+  padding: 20px 24px !important;
+}
+
+/* Override the mask (the dark overlay behind the modal) */
+.dark-modal .ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* ========= INTERNAL ELEMENTS ========= */
+
+/* Search input inside the modal */
+.dark-modal .modal-search {
+  background: rgba(174, 134, 37, 0.1) !important;
+  border: 1px solid #AE8625 !important;
+  border-radius: 8px !important;
+}
+.dark-modal .modal-search input {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+.dark-modal .modal-search .ant-input-prefix {
+  color: #FFD700;
+}
+.dark-modal .modal-search .ant-input-clear-icon {
+  color: #FFD700;
+}
+
+/* List container */
+.dark-modal .modal-list {
+  background: transparent !important;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.dark-modal .modal-list .ant-list-item {
+  border-bottom: 1px solid #333 !important;
+  padding: 12px 0 !important;
+  background: transparent !important;
+  color: #cccccc !important;
+}
+.dark-modal .modal-list .ant-list-item:hover {
+  background: rgba(174, 134, 37, 0.05) !important;
+}
+
+/* Avatar inside the list */
+.dark-modal .ant-avatar {
+  background: linear-gradient(135deg, #AE8625, #FFD700) !important;
+  color: #000 !important;
+  font-weight: bold !important;
+}
+
+/* Phone number gold highlight */
+.dark-modal .modal-phone {
+  font-family: 'Courier New', monospace !important;
+  color: #FFD700 !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+}
+
+/* Description text */
+.dark-modal .ant-list-item-meta-description {
+  color: #cccccc !important;
+}
+
+/* Empty state text */
+.dark-modal .ant-empty-description {
+  color: #aaaaaa !important;
+}
+
+/* Scrollbar */
+.dark-modal .modal-list::-webkit-scrollbar {
+  width: 6px;
+}
+.dark-modal .modal-list::-webkit-scrollbar-thumb {
+  background: #AE8625;
+  border-radius: 3px;
+}
+.dark-modal .modal-list::-webkit-scrollbar-track {
+  background: #2d2d2d;
+}
+/* ========= CUSTOM MODAL (DARK THEME) ========= */
+.custom-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.custom-modal-card {
+  background: #1a1a1a;
+  border: 2px solid #AE8625;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.custom-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #AE8625;
+}
+
+.custom-modal-header h2 {
+  margin: 0;
+  color: #FFD700;
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.custom-modal-close {
+  background: none;
+  border: none;
+  color: #FFD700;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.custom-modal-close:hover {
+  color: #ffffff;
+}
+
+.custom-modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Ensure the inner list/search styles still work */
+.custom-modal-body .modal-search {
+  margin-bottom: 20px;
 }
