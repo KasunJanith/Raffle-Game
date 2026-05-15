@@ -6,13 +6,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(45deg, #000000, #c8cb14);
-}
-
-.gradient-background {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
 }
 
 .confetti-container {
@@ -36,7 +30,7 @@
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.4), transparent);
+  background: radial-gradient(circle, rgba(174, 134, 37, 0.4), transparent);
   filter: blur(80px);
   top: 50%;
   left: 50%;
@@ -55,9 +49,10 @@
   font-size: 64px;
   font-weight: 900;
   margin: 0 0 30px 0;
-  color: white;
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: 3px;
+  -webkit-text-stroke: 2px #AE8625;
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
 }
 
@@ -66,9 +61,7 @@
   padding: 40px 60px;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 30px;
-  box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    inset 0 0 30px rgba(255, 215, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.2);
   margin: 20px auto;
   max-width: 500px;
   border: 4px solid #ffd700;
@@ -86,14 +79,8 @@
 }
 
 @keyframes cardGlow {
-  0%, 100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 
 .winner-name {
@@ -151,61 +138,34 @@
   margin-top: 40px;
 }
 
-.back-home-btn {
+.back-dashboard-btn {
   height: 60px;
   font-size: 18px;
   font-weight: bold;
   border-radius: 30px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 3px solid white;
-  color: #000000;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #AE8625, #FFD700);
+  border: none;
+  color: #000;
+  box-shadow: 0 8px 24px rgba(174, 134, 37, 0.5);
   transition: all 0.3s ease;
   padding: 0 40px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.back-home-btn:hover {
-  background: white;
+.back-dashboard-btn:hover {
+  background: linear-gradient(135deg, #FFD700, #AE8625);
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 32px rgba(255, 215, 0, 0.7);
 }
 
 @media (max-width: 768px) {
-  .winner-label {
-    font-size: 48px;
-    letter-spacing: 2px;
-  }
-
-  .winner-card {
-    padding: 30px 40px;
-    max-width: 90%;
-  }
-
-  .winner-name {
-    font-size: 16px;
-  }
-
-  .winner-phone {
-    font-size: 36px;
-  }
-
-  .congratulations-text {
-    font-size: 28px;
-  }
-
-  .crown {
-    font-size: 60px;
-  }
-
-  .confetti {
-    font-size: 24px;
-  }
-
-  .back-home-btn {
-    height: 50px;
-    font-size: 14px;
-    padding: 0 30px;
-  }
+  .winner-label { font-size: 48px; letter-spacing: 2px; }
+  .winner-card { padding: 30px 40px; max-width: 90%; }
+  .winner-name { font-size: 16px; }
+  .winner-phone { font-size: 36px; }
+  .congratulations-text { font-size: 28px; }
+  .crown { font-size: 60px; }
+  .confetti { font-size: 24px; }
+  .back-dashboard-btn { height: 50px; font-size: 14px; padding: 0 30px; }
 }

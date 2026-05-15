@@ -96,7 +96,7 @@ export default function RaffleHome() {
         </motion.div>
 
         {/* Decorative cards */}
-        <div className="raffle-cards">
+        {/* <div className="raffle-cards">
           {["🎯", "🏆", "🎲"].map((icon, i) => (
             <motion.div
               key={i}
@@ -111,7 +111,7 @@ export default function RaffleHome() {
               <span className="card-icon">{icon}</span>
             </motion.div>
           ))}
-        </div>
+        </div> */}
       </motion.div>
 
       {/* Background light effect */}

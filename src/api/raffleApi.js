@@ -27,22 +27,17 @@ export const fetchParticipants = async () => {
 /**
  * Save the winner to the spreadsheet
  */
-export const saveWinner = async (winner) => {
-  try {
-    const response = await axios.post(`${RAFFLE_API}/save-winner`, {
-      participantId: winner.id,
+export const saveWinner = (winner) => {
+  return fetch("http://localhost:5000/api/raffle/save-winner", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
       participantName: winner.name,
       participantPhone: winner.phone,
+      participantEmail: winner.email,
       timestamp: new Date().toISOString(),
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error saving winner:", error);
-    return {
-      success: false,
-      message: error.message,
-    };
-  }
+    }),
+  });
 };
 
 /**

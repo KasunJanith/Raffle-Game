@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import "./RaffleWinner.css";
 
 export default function RaffleWinner() {
@@ -12,8 +12,8 @@ export default function RaffleWinner() {
     phone: "Winner",
   };
 
-  const handleBackHome = () => {
-    navigate("/");
+  const handleBackDashboard = () => {
+    navigate("/dashboard");
   };
 
   return (
@@ -101,7 +101,6 @@ export default function RaffleWinner() {
           whileHover={{ scale: 1.05 }}
         >
           <div className="card-glow"></div>
-          
           <h2 className="winner-phone">{winner.phone}</h2>
           <p className="winner-name">{winner.name}</p>
         </motion.div>
@@ -122,13 +121,8 @@ export default function RaffleWinner() {
         {/* Decorative crown */}
         <motion.div
           className="crown"
-          animate={{
-            y: [0, -10, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-          }}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
         >
           👑
         </motion.div>
@@ -143,13 +137,8 @@ export default function RaffleWinner() {
                 x: [0, Math.cos((i / 12) * Math.PI * 2) * 100],
                 y: [0, Math.sin((i / 12) * Math.PI * 2) * 100],
               }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-              }}
-              style={{
-                "--index": i,
-              }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{ "--index": i }}
             >
               ✨
             </motion.div>
@@ -157,42 +146,23 @@ export default function RaffleWinner() {
         </div>
       </motion.div>
 
-      {/* Back home button */}
+      {/* Back to Dashboard button */}
       <motion.div
         className="back-button-container"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{
-          delay: 1,
-          duration: 0.6,
-        }}
+        transition={{ delay: 1, duration: 0.6 }}
       >
         <Button
           type="primary"
           size="large"
-          className="back-home-btn"
-          onClick={handleBackHome}
-          icon={<HomeOutlined />}
+          className="back-dashboard-btn"
+          onClick={handleBackDashboard}
+          icon={<ArrowLeftOutlined />}
         >
-          Back to Home
+          Back to Dashboard
         </Button>
       </motion.div>
-
-      {/* Animated background gradient */}
-      <motion.div
-        className="gradient-background"
-        animate={{
-          background: [
-            "linear-gradient(45deg,rgb(19, 15, 15),rgb(74, 76, 40))",
-            "linear-gradient(45deg,rgb(35, 32, 33), #ffd700)",
-            "linear-gradient(45deg, #ffd700,rgb(55, 50, 50))",
-          ],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-        }}
-      ></motion.div>
     </div>
   );
 }
