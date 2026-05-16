@@ -1,6 +1,7 @@
 {
-  "name": "avurudu-games",
-  "version": "0.1.0",
+  "name": "raffle-draw-system",
+  "version": "1.0.0",
+  "description": "Modern animated raffle draw system with live updates",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.1",

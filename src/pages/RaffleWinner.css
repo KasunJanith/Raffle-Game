@@ -1,0 +1,171 @@
+.raffle-winner-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+}
+
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.confetti {
+  position: absolute;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.spotlight {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(174, 134, 37, 0.4), transparent);
+  filter: blur(80px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.winner-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.winner-label {
+  font-size: 64px;
+  font-weight: 900;
+  margin: 0 0 30px 0;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  -webkit-text-stroke: 2px #AE8625;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+}
+
+.winner-card {
+  position: relative;
+  padding: 40px 60px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.2);
+  margin: 20px auto;
+  max-width: 500px;
+  border: 4px solid #ffd700;
+  transform-origin: center;
+}
+
+.card-glow {
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.3), transparent);
+  border-radius: 40px;
+  filter: blur(20px);
+  z-index: -1;
+  animation: cardGlow 2s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.winner-name {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0 0 10px 0;
+  color: #393838;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.winner-phone {
+  font-size: 48px;
+  color: #000000;
+  margin: 0;
+}
+
+.congratulations-text {
+  font-size: 36px;
+  color: white;
+  margin: 30px 0 0 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.crown {
+  font-size: 80px;
+  margin: 20px 0;
+  display: inline-block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.particles-around {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.back-button-container {
+  position: relative;
+  z-index: 10;
+  margin-top: 40px;
+}
+
+.back-dashboard-btn {
+  height: 60px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #AE8625, #FFD700);
+  border: none;
+  color: #000;
+  box-shadow: 0 8px 24px rgba(174, 134, 37, 0.5);
+  transition: all 0.3s ease;
+  padding: 0 40px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.back-dashboard-btn:hover {
+  background: linear-gradient(135deg, #FFD700, #AE8625);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(255, 215, 0, 0.7);
+}
+
+@media (max-width: 768px) {
+  .winner-label { font-size: 48px; letter-spacing: 2px; }
+  .winner-card { padding: 30px 40px; max-width: 90%; }
+  .winner-name { font-size: 16px; }
+  .winner-phone { font-size: 36px; }
+  .congratulations-text { font-size: 28px; }
+  .crown { font-size: 60px; }
+  .confetti { font-size: 24px; }
+  .back-dashboard-btn { height: 50px; font-size: 14px; padding: 0 30px; }
+}
