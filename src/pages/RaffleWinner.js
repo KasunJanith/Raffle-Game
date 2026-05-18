@@ -2,6 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useEffect, useRef } from "react";
+import applauseSound from "../assets/sounds/applause.mp3";  // adjust the path if needed
 import "./RaffleWinner.css";
 
 export default function RaffleWinner() {
@@ -11,6 +13,25 @@ export default function RaffleWinner() {
     name: "Congratulations!",
     phone: "Winner",
   };
+
+  const applauseRef = useRef(null);
+
+  useEffect(() => {
+    // Create and play the applause sound
+    applauseRef.current = new Audio(applauseSound);
+    applauseRef.current.volume = 0.8;   // optional: adjust volume
+    applauseRef.current.play().catch((err) => {
+      console.warn("Applaud sound failed:", err);
+    });
+
+    return () => {
+      // Clean up when leaving the page
+      if (applauseRef.current) {
+        applauseRef.current.pause();
+        applauseRef.current = null;
+      }
+    };
+  }, []);
 
   const handleBackDashboard = () => {
     navigate("/dashboard");
