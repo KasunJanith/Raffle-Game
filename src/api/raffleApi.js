@@ -34,7 +34,6 @@ export const saveWinner = (winner) => {
     body: JSON.stringify({
       participantName: winner.name,
       participantPhone: winner.phone,
-      participantEmail: winner.email,
       timestamp: new Date().toISOString(),
     }),
   });
